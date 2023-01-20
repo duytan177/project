@@ -14,7 +14,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="public/assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="public/assets/favicon/favicon-16x16.png">
     <link rel="manifest" href="public/assets/favicon/site.webmanifest">
-    
+
 
     @include('library.thuvien')
 </head>
@@ -72,7 +72,7 @@
                         <li class="profile-nav onhover-dropdown p-0 me-0">
                             <div class="media profile-media"><img class="b-r-10"
                                     src="public/assets/images/dashboard/profile.jpg" alt="">
-                                <div class="media-body"><span>Tom Nguyen</span>
+                                <div class="media-body"><span>{{ Auth::user()->name }}</span>
                                     <p class="mb-0 font-roboto">Admin <i class="middle fa fa-angle-down"></i></p>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
                                 <!-- <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
                              <li><a href="#"><i data-feather="file-text"></i><span>Taskboard</span></a></li>-->
                                 <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li>
-                                <li><a href="#"><i data-feather="log-in"> </i><span>Log in</span></a></li>
+                                <li><a href=""><i data-feather="log-in"> </i><span>Log out</span></a></li>
                             </ul>
                         </li>
                     </ul>
@@ -97,7 +97,7 @@
                         </svg>
                     </div>
                     <div class="ProfileCard-details">
-                        <div class="ProfileCard-realName">sdsad</div>
+                        <div class="ProfileCard-realName"></div>
                     </div>
                 </div>
             </script>
@@ -166,17 +166,10 @@
                     <div class="page-title">
                         <div class="row">
                             <div class="col-6">
-                                <h3>Dr. Tom Nguyen</h3>
+                                <h3>{{ Auth::user()->name }}</h3>
                             </div>
-                            <div class="col-6">
-                                <!--
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html"> <i data-feather="home"></i></a></li>
-                                <li class="breadcrumb-item">Color version</li>
-                                <li class="breadcrumb-item active">Layout light</li>
-                            </ol>
-                            -->
-                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -216,87 +209,66 @@
                                 <div class="col-4"></div>
                             </div>
                         </div>
-                        <table class="table-sm table " style="width: 90%;">
+                        <table class="table-sm table " id="data-source-1_info" style="width: 90%;">
                             <thead>
                                 <tr>
-                                    <th class="">Status</th>
-                                    <th class="">Date</th>
-                                    <th class="">Num.Invoice</th>
-                                    <th class="">Username</th>
-                                    <th class="">Rising</th>
-                                    <th class="">Retrocession</th>
-                                    <th class="" "> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div style="height: 27px; width: 27px; border-radius: 50%; background-color: rgb(203, 169, 125); border: 2px solid rgb(139, 82, 25); "></div>
-                            </td>
-                            <td>02/11/2022</td>
-                            <td>202211-0001</td>
-                            <td>Last name and first name</td>
-                            <td>188.70$</td>
-                            <td>17%</td>
-                            <td>
-                                <i class="fa-solid fa-caret-up fa-2x "></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div style="height: 27px; width: 27px; border-radius: 50%; background-color: rgb(203, 169, 125); border: 2px solid rgb(139, 82, 25); "></div>
-                            </td>
-                            <td>02/11/2022</td>
-                            <td>202211-0001</td>
-                            <td>Name</td>
-                            <td>188.70$</td>
-                            <td>17%</td>
-                            <td>
-                                <i class="fa-solid fa-caret-down fa-2x "></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div style="height: 27px; width: 27px; border-radius: 50%; background-color: rgb(203, 169, 125); border: 2px solid rgb(139, 82, 25); "></div>
-                            </td>
-                            <td>02/11/2022</td>
-                            <td>202211-0001</td>
-                            <td>Name</td>
-                            <td>188.70$</td>
-                            <td>17%</td>
-                            <td>
-                                <i class="fa-solid fa-caret-up fa-2x "></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="7 ">
-                                <div class="d-flex flex-row justify-content-between ">
-                                    <div style="width: 30%; ">
+                                    <th class="sorting_asc"><a href="?sort=name&sortType={{$sortType}}" style="color:black">Status</a></th>
+                                    <th class="sorting">Date</th>
+                                    <th class="sorting">Num.Invoice</th>
+                                    <th class="sorting">Username</th>
+                                    <th class="sorting">Rising</th>
+                                    <th class="sorting">Retrocession</th>
+                                    <th class=""> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($result as $id => $item)
+                                    <tr>
+                                        <td>
+                                            <div
+                                                style="height: 27px; width: 27px; border-radius: 50%; background-color: rgb(203, 169, 125); border: 2px solid rgb(139, 82, 25); ">
+                                            </div>
+                                        </td>
+                                        <td>{{ date("d/m/Y",strtotime($item->created_at))}}</td>
+                                        <td>202211-0001</td>
+                                        <td class="sorting_1">{{$item->name}}</td>
+                                        <td>{{$item->rising}}</td>
+                                        <td>17%</td>
+                                        <td>
+                                            <i class="fa-solid fa-caret-up fa-2x "></i>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                <tr>
+                                    <td colspan="7 ">
                                         <div class="d-flex flex-row justify-content-between ">
-                                            <label for=" "> Total amount recovered: </label> 2.127.50
+                                            <div style="width: 30%; ">
+                                                <div class="d-flex flex-row justify-content-between ">
+                                                    <label for=" "> Total amount recovered: </label> 2.127.50
+                                                </div>
+                                                <div class="input-group d-flex flex-row justify-content-between ">
+                                                    <label for=" ">Number requisition:</label> 37
+                                                </div>
+                                                <div class="input-group d-flex flex-row justify-content-between ">
+                                                    <label for=" ">Retrocession rate: </label> 11%
+                                                </div>
+                                                <br><br><br><br>
+                                                <div class="input-group d-flex flex-row justify-content-between ">
+                                                    <label for=" "><b>TOTAL: </b></label> 234.02$
+                                                </div>
+
+                                            </div>
+                                            <a href=" " class="btn btn-outline-primary px-sm-2 "
+                                                style="width:100px; height: 5%; text-align: center; ">Download</a>
                                         </div>
-                                        <div class="input-group d-flex flex-row justify-content-between ">
-                                            <label for=" ">Number requisition:</label> 37
-                                        </div>
-                                        <div class="input-group d-flex flex-row justify-content-between ">
-                                            <label for=" ">Retrocession rate: </label> 11%
-                                        </div>
-                                        <br><br><br><br>
-                                        <div class="input-group d-flex flex-row justify-content-between ">
-                                            <label for=" "><b>TOTAL: </b></label> 234.02$
-                                        </div>
-        
-                                    </div>
-                                    <a href=" " class="btn btn-outline-primary px-sm-2 " style="width:100px; height: 5%; text-align: center; ">Download</a>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-        </div>
-        <!-- footer start-->
-        {{-- <footer class="footer">
+                <!-- footer start-->
+                {{-- <footer class="footer">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 footer-copyright text-center">
@@ -305,8 +277,9 @@
                 </div>
             </div>
         </footer> --}}
-    </div>
-</div>
+            </div>
+        </div>
 </body>
-    @include('library.thuvien')
+@include('library.thuvien')
+
 </html>

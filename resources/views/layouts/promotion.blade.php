@@ -78,19 +78,19 @@
             </tr>
             <tr>
                 <td colspan="7 " class="p-4 ">
-                            <div class="row py-2 ">
+                            <div class="row py-2 input-group">
                                 <label for=" " class="col-md-2 ">Start date :</label>
-                                <input type=date name="startDate " class=" col-md-3 ">
+                                <input type=date name="startDate " class="form-control col-md-3 ">
                                 <label for=" " class="col-md-1 ">End date :</label>
-                                <input type=date name="endDate " class="col-md-3 ">                
+                                <input type=date name="endDate " class="form-control col-md-3 ">                
                             </div>
-                            <div class="row py-2 ">
+                            <div class="row py-2 input-group">
                                <label for=" " class=col-md-2>User</label>
-                                 <input type=text name="user " class=col-md-4 required>
+                                <input type=text name="user " class="col-md-4 form-control" required>
                              </div>
-                             <div class="row py-2 ">
+                             <div class="row py-2 input-group">
                                 <label for=" " class=col-md-2>Promo Percentage :</label>
-                                <input type=text name="percentage " class=col-md-3 required>
+                                <input type=text name="percentage " class="col-md-3 form-control"required>
                             </div>
 </td>
 </tr>
