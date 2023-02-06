@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2023 at 08:11 AM
+-- Generation Time: Jan 20, 2023 at 01:24 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -36,6 +36,28 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoices`
+--
+
+CREATE TABLE `invoices` (
+  `id` bigint(20) NOT NULL,
+  `percentage` int(10) NOT NULL,
+  `rising` float NOT NULL,
+  `sponsorCODE` int(11) NOT NULL,
+  `NumberSSRS` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `invoices`
+--
+
+INSERT INTO `invoices` (`id`, `percentage`, `rising`, `sponsorCODE`, `NumberSSRS`) VALUES
+(1, 180, 300.32, 199928321, 1226443),
+(2, 1890, 39990.2, 3998573, 578454);
 
 -- --------------------------------------------------------
 
@@ -102,6 +124,8 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role` bigint(2) NOT NULL DEFAULT 2 COMMENT '1:admin|2:user',
   `percentage` int(10) DEFAULT NULL,
+  `rising` float UNSIGNED NOT NULL,
+  `siret` int(15) NOT NULL,
   `status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `dateofbirth` date DEFAULT NULL,
   `address1` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -119,10 +143,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `role`, `percentage`, `status`, `dateofbirth`, `address1`, `address2`, `codepostal`, `city`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$kWukI9KARS7rfD2BUC09C.M9xg2n2lmC83Zkl5kD7E8VcYqMVSDWe', NULL, '2022-12-31 06:25:08', '2022-12-31 06:25:08'),
-(2, 'Tân Lê', 'tanld.21it@vku.udn.vn', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$uLp0/svJB68MaocniL9Mnezw1mw5VQ/q/rvZEtPb7hGx4fDV8OJzq', NULL, '2022-12-31 10:04:09', '2022-12-31 10:04:09'),
-(3, 'Duy Tân', 'leduytan1772003@gmail.com', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$/W62DRZt/sVyKCCzaBDJsuUgHAoV61BF13HcqnRmeixL2nWXkuzy.', NULL, '2022-12-31 10:10:50', '2022-12-31 10:10:50');
+INSERT INTO `users` (`id`, `name`, `email`, `role`, `percentage`, `rising`, `siret`, `status`, `dateofbirth`, `address1`, `address2`, `codepostal`, `city`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', 'admin@gmail.com', 1, NULL, 0, 192078382, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$kWukI9KARS7rfD2BUC09C.M9xg2n2lmC83Zkl5kD7E8VcYqMVSDWe', NULL, '2022-12-31 06:25:08', '2022-12-31 06:25:08'),
+(2, 'Tân Lê', 'tanld.21it@vku.udn.vn', 2, 18, 188.7, 198299922, '1', '2003-07-17', 'Huế', 'Đà Nẵng', '20', 'Thành phố Đà Nẵng', NULL, '$2y$10$uLp0/svJB68MaocniL9Mnezw1mw5VQ/q/rvZEtPb7hGx4fDV8OJzq', NULL, '2022-12-31 10:04:09', '2022-12-31 10:04:09'),
+(3, 'Duy Tân', 'leduytan1772003@gmail.com', 2, 20, 200.98, 188283992, '1', '1998-01-08', 'Hà Nội', 'Sài gộn', '10', 'Huế', NULL, '$2y$10$/W62DRZt/sVyKCCzaBDJsuUgHAoV61BF13HcqnRmeixL2nWXkuzy.', NULL, '2022-12-31 10:10:50', '2022-12-31 10:10:50');
 
 --
 -- Indexes for dumped tables
@@ -134,6 +158,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `role`, `percentage`, `status`, `dat
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `migrations`
@@ -171,6 +201,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `invoices`
+--
+ALTER TABLE `invoices`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`

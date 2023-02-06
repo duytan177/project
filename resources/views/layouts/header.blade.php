@@ -47,12 +47,14 @@
                                 <li><a href="#"><i data-feather="user"></i><span>Account </span></a></li>
                                 <!-- <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
                                  <li><a href="#"><i data-feather="file-text"></i><span>Taskboard</span></a></li>-->
-                                <li><a href="{{route('setting')}}"><i data-feather="settings"></i><span>Settings</span></a></li>
-                                <li> <a href="{{route('logout')}}"   onclick="event.preventDefault();
-                                    document.getElementById('form').submit();">Log Out</a></li>
-                                    <form action="{{route('logout')}}" id="form" method="POST">
+                                <li><a href="{{route('setting')}}"><span>Settings</span></a></li>
+                                <li> 
+                                    <a href="{{route('logout')}}"   onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">{{__('logout')}}</a>
+                                    <form action="{{route('logout')}}" id="logout-form" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                </li>
                             </ul>
                         </li>
                     </ul>

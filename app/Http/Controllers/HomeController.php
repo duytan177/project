@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -26,19 +27,32 @@ class HomeController extends Controller
     {
         return view('layouts.invoice');
     }
-    public function index2()
+    public function index2(Request $request)
     {
-        return view('layouts.invoice2');
+        $sortType = $request->input($request->input('sortType'));
+        $sort = $request->input("sort");
+        $sortType = $request->input("sortType")?$request->input("sortType"):"asc";
+        if($sort != null && $sortType == "asc"){
+            $sortType= "desc";
+        }else{
+            $sortType = "asc";
+        }
+        if($sort){
+            $result = DB::table("users")->where('role',2)->orderBy($sort,$sortType);
+        }else{
+            $result = DB::table("users")->where('role',2);
+        }
+        $result = $result->get();
+        return view('layouts.invoice2',['result' => $result,'sortType' => $sortType]);
     }
 
     public function setting(){
         return view('layouts.setting');
     }
-    public function user(){
-        return view('user.index');
-    }
-    public function detail(){
-        return view('user.detail');
+   
+    public function detail($id){
+        $result = DB::table('users')->where('role',2)->where('id',$id)->first();
+        return view('user.detail',['result' => $result]);
     }
     public function promotion(){
         return view('layouts.promotion');
@@ -46,5 +60,8 @@ class HomeController extends Controller
 
     public function demo(){
         return view('demo');
+    }
+    public function view(){
+        return view('layouts.view');
     }
 }

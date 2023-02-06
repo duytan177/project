@@ -30,7 +30,7 @@
 
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="theme/index.html"
                                                     target="_blank"><i
-                                data-feather="home"></i><span>Saisir</span></a></li>
+                                data-feather="home"></i><span>Sponsor</span></a></li>
 
                         <!--<li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i
                                 data-feather="anchor"></i><span>Starter kit</span></a>
