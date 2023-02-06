@@ -1,13 +1,7 @@
 @extends('layouts.master')
 @section('content')
 <div class="container-fluid">
-    <div class="d-flex flex-row justify-content-between px-4 ">
-        <p>Administrator</p>
-        <a href="# " style="background-color: gray; height: 40px; width: 40px; border-radius: 50%; opacity: 0.5;">
-            <i class="fa-solid fa-user " style="color:black; margin-left: 32%; margin-top: 27%;"></i>
-        </a>
-    </div>
-    <div class=" text-start m-0 p-4 text-start">
+      <div class=" text-start m-0 p-4 text-start">
         <div class="row mb-4">
             <label for=" " class=" "> Promotion: </label>
         </div>
@@ -25,7 +19,7 @@
                 <input type="date" name="endDate " class="form-control " required>
             </div>
         </div>
-
+        
     </div>
     <table class="table-sm table " style="width: 90%;">
         <thead>
@@ -84,13 +78,16 @@
                                 <label for=" " class="col-md-1 ">End date :</label>
                                 <input type=date name="endDate " class="form-control col-md-3 ">                
                             </div>
-                            <div class="row py-2 input-group">
-                               <label for=" " class=col-md-2>User</label>
-                                <input type=text name="user " class="col-md-4 form-control" required>
-                             </div>
-                             <div class="row py-2 input-group">
-                                <label for=" " class=col-md-2>Promo Percentage :</label>
-                                <input type=text name="percentage " class="col-md-3 form-control"required>
+                            <div class="row  input-group">
+                                <div class="col-md-6 py-1 d-flex flex-row">
+                                <label for=" " class="col-md-4 ">User </label>
+                                <input type="text " name="user " class="col-md-3 form-control w-50" required>
+                                </div>
+                            </div> <div class="row  input-group">
+                                <div class="col-md-6 py-1 d-flex flex-row">
+                                <label for=" " class="col-md-4 ">Promo percentage: </label>
+                                <input type="text " name="percentage " class="col-md-3 form-control w-25" required>
+                                </div>
                             </div>
 </td>
 </tr>

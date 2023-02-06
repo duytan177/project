@@ -6,6 +6,7 @@
             <div class="col-12 p-0">
                 <div class="login-card">
                     <div>
+                        @include('error')
                         {{-- <div><a class="logo" href="#"><img class="img-fluid for-light" src="../assets/images/logo/login.png" alt="looginpage"><img class="img-fluid for-dark" src="../assets/images/logo/logo_dark.png" alt="looginpage"></a></div> --}}
                         <div class="login-main">
                             <form method="POST" action="{{ route('login') }}" class="theme-form">

@@ -400,16 +400,27 @@
                         <li class="profile-nav onhover-dropdown p-0 me-0">
                             <div class="media profile-media"><img class="b-r-10"
                                     src="public/assets/images/dashboard/profile.jpg" alt="">
-                                <div class="media-body"><span>Tom Nguyen</span>
-                                    <p class="mb-0 font-roboto">Admin <i class="middle fa fa-angle-down"></i></p>
+                                <div class="media-body"><span>{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+                                    @if(\Illuminate\Support\Facades\Auth::user()->role==1)
+                                        <p class="mb-0 font-roboto">Administrator <i class="middle fa fa-angle-down"></i></p>
+                                    @else
+                                        <p class="mb-0 font-roboto">User <i class="middle fa fa-angle-down"></i></p>
+                                    @endif
+
                                 </div>
                             </div>
                             <ul class="profile-dropdown onhover-show-div">
                                 <li><a href="#"><i data-feather="user"></i><span>Account </span></a></li>
                                 <!-- <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
                              <li><a href="#"><i data-feather="file-text"></i><span>Taskboard</span></a></li>-->
-                                <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li>
-                                <li><a href="#"><i data-feather="log-in"> </i><span>Log in</span></a></li>
+                                <li><a href="{{route('setting')}}"><i data-feather="settings"></i><span>Settings</span></a></li>
+                                <li>
+                                  <a href="{{route('logout')}}"   onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();"><i data-feather="log-out"> </i>{{__('logout')}}</a>
+                                    <form action="{{route('logout')}}" id="logout-form" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                            </li>
                             </ul>
                         </li>
                     </ul>
@@ -524,7 +535,7 @@
                     <div class="page-title">
                         <div class="row">
                             <div class="col-6">
-                                <h3>Dr. Tom Nguyen</h3>
+                                <h3>{{Auth::user()->name}}</h3>
                             </div>
                             <div class="col-6">
                                 <!--

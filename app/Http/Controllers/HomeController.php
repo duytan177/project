@@ -49,11 +49,10 @@ class HomeController extends Controller
     public function setting(){
         return view('layouts.setting');
     }
-    public function user(){
-        return view('user.index');
-    }
-    public function detail(){
-        return view('user.detail');
+   
+    public function detail($id){
+        $result = DB::table('users')->where('role',2)->where('id',$id)->first();
+        return view('user.detail',['result' => $result]);
     }
     public function promotion(){
         return view('layouts.promotion');
@@ -61,5 +60,8 @@ class HomeController extends Controller
 
     public function demo(){
         return view('demo');
+    }
+    public function view(){
+        return view('layouts.view');
     }
 }
