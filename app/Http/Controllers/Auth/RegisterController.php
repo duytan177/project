@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -49,7 +50,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
 
@@ -57,13 +58,26 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \App\Models\User
      */
-    public function showRegister(){
+    public function showRegister(Request $request)
+    {
         $cities = DB::table('cities')->get();
-        return view('auth.register',['cities' => $cities]);
+        $code = $request->code;
+        $sponsor_code = DB::table('users')->where('role', '2')->get();
+        if (!empty($code)) {
+            foreach ($sponsor_code as $value) {
+                if ($value->sponsor == $code) {
+                    return view('auth.register', ['cities' => $cities, 'code' => $code]);
+                }
+            }
+            return redirect()->route('register')->with('error', 'Mã code không chính xác');
+        } else {
+            return view('auth.register', ['cities' => $cities, 'code' => $code]);
+        }
     }
+
     protected function create(UserRequest $request)
     {
 
@@ -81,17 +95,41 @@ class RegisterController extends Controller
         $users->vat = $request->VAT;
         $users->iban = $request->IBAN;
         $users->swift = $request->swift;
-        $users->sponsor = $request->sponsor;
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $number = "0123456789";
+        $randomString = '';
+
+        for ($i = 0; $i < 8; $i++) {
+            if($i<4) {
+                $index = rand(0, strlen($characters) - 1);
+                $randomString .= $characters[$index];
+            }else{
+                $index = rand(0, strlen($number) - 1);
+                $randomString .= $number[$index];
+            }
+        }
+
+        $users->sponsor = $request->sponsor?$request->sponsor:$randomString;
         $users->numberSSRS = $request->numberSSRS;
         $users->default = $request->default;
         $users->provider = $request->provider;
         $users->dissertation = $request->dissertation;
-        $users->save();
-        return redirect()->route('login')->with('success','Đăng ký tài khoản thành công');
-        // return User::create([
-        //     'name' => $data['name'],
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password']),
-        // ]);
+        if($users->save()) {
+            if ($users->sponsor) {
+                $parent_user_id = DB::table('users')->where('sponsor', $users->sponsor)->first();
+                $param = [
+                    'user_id' => $users->id,
+                    'parent_user_id' => $parent_user_id->id
+                ];
+                $result = DB::table('sponsor_code')->insert($param);
+            }
+            Auth::login($users);
+            return redirect()->route('login')->with('success', 'Đăng ký tài khoản thành công');
+        }
+//         return User::create([
+//             'name' => $data['name'],
+//             'email' => $data['email'],
+//             'password' => Hash::make($data['password']),
+//         ]);
     }
 }

@@ -17,7 +17,7 @@
         <div class="row m-2 input-group ">
             <div class="col-md-6 d-flex flex-row ">
                 <label for=" " class="py-2">Percentage: </label>
-                <input type="text" value="18%" class="form-control w-25">
+                <input type="text" value="{{$result->percentage.'%'}}" class="form-control w-25">
             </div>
             <div class="col-md-6 ">
                 <label for=" " class="col-md-2 d-lfex align-self-end ">Active: </label>

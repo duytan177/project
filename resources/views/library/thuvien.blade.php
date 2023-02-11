@@ -27,7 +27,7 @@
 <!-- Plugins css start-->
 <link rel="stylesheet" type="text/css" href="{{asset("public/assets/css/vendors/scrollbar.css")}}">
 <link rel="stylesheet" type="text/css" href="{{asset("public/assets/css/vendors/prism.css")}}">
-<!-- Plugins css Ends--
+<!-- Plugins css Ends--!>
     <!-- Bootstrap css-->
 <link rel="stylesheet" type="text/css" href="{{asset("public/assets/css/vendors/bootstrap.css")}}">
 <!-- App css-->
@@ -41,8 +41,8 @@
 
 <!-- login js-->
 <!-- Plugin used-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
-    <script src="{{asset("public/assets/js/jquery-3.5.1.min.js")}}"></script>
     <!-- Bootstrap js-->
     <script src="{{asset("public/assets/js/bootstrap/bootstrap.bundle.min.js")}}"></script>.
     <!-- feather icon js-->
@@ -63,5 +63,4 @@
     <script src="{{asset("public/assets/js/theme-customizer/customizer.js")}}"></script>
     <script src="{{asset("public/assets/js/script.js")}}"></script>
     <!-- login js-->
-    
- 
+

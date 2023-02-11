@@ -8,6 +8,7 @@ use App\Rules\IbanRule;
 use App\Rules\SirenRule;
 use App\Rules\SiretRule;
 use Carbon\Carbon;
+
 use Faker\Calculator\Luhn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
             $result = DB::table('users')->where('role',2)->get();
+
             return view('user.index',['result' => $result]);
     }
 
