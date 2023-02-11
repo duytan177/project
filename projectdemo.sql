@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2023 at 10:50 AM
+-- Generation Time: Feb 11, 2023 at 05:22 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cities` (
-  `id` int(11) NOT NULL,
-  `name` varchar(64) DEFAULT NULL,
-  `department` varchar(100) DEFAULT NULL,
-  `region` varchar(100) DEFAULT NULL,
-  `pop` varchar(50) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COMMENT='Tỉnh thành';
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `department` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `region` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pop` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `cities`
@@ -506,19 +506,18 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `invoices` (
   `id` bigint(20) NOT NULL,
-  `percentage` int(10) NOT NULL,
-  `rising` float NOT NULL,
-  `sponsorCODE` int(11) NOT NULL,
-  `NumberSSRS` int(11) NOT NULL
+  `percentage` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  ` rising` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `retrocession` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `invoices`
 --
 
-INSERT INTO `invoices` (`id`, `percentage`, `rising`, `sponsorCODE`, `NumberSSRS`) VALUES
-(1, 180, 300.32, 199928321, 1226443),
-(2, 1890, 39990.2, 3998573, 578454);
+INSERT INTO `invoices` (`id`, `percentage`, ` rising`, `retrocession`) VALUES
+(1, '180', '300.32', ''),
+(2, '1890', '39990.2', '');
 
 -- --------------------------------------------------------
 
@@ -576,14 +575,25 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `referer`
+-- Table structure for table `sponsor_code`
 --
 
-CREATE TABLE `referer` (
-  `id` bigint(20) NOT NULL,
-  `code` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` bigint(20) DEFAULT NULL
+CREATE TABLE `sponsor_code` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `parent_user_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sponsor_code`
+--
+
+INSERT INTO `sponsor_code` (`id`, `user_id`, `parent_user_id`, `created_at`, `updated_at`) VALUES
+(1, 32, 12, '2023-02-11 15:43:26', '2023-02-11 15:43:26'),
+(2, 33, 12, '2023-02-11 15:43:27', '2023-02-11 15:43:27'),
+(3, 37, 12, '2023-02-11 15:43:30', '2023-02-11 15:43:30');
 
 -- --------------------------------------------------------
 
@@ -601,12 +611,13 @@ CREATE TABLE `users` (
   `address1` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address2` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `codepostal` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `city_id` int(11) NOT NULL,
+  `city_id` bigint(20) UNSIGNED NOT NULL,
   `siret` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vat` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `iban` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `swift` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sponsor` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `percentage` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '18',
   `numberSSRS` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `default` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `provider` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -616,26 +627,33 @@ CREATE TABLE `users` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `status`, `name`, `email`, `role`, `dateofbirth`, `address1`, `address2`, `codepostal`, `city_id`, `siret`, `vat`, `iban`, `swift`, `sponsor`, `numberSSRS`, `default`, `provider`, `dissertation`, `active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Dr', 'Admin', 'admin@gmail.com', 1, '', '', '', '0', 0, '', '', '', '', '', '0', '', '', '', 0, NULL, '$2y$10$kWukI9KARS7rfD2BUC09C.M9xg2n2lmC83Zkl5kD7E8VcYqMVSDWe', NULL, '2022-12-31 06:25:08', '2022-12-31 06:25:08'),
-(8, 'Dr', 'sd Lê', 'leduytan177222003@gmail.com', 2, '2023-02-03', 's', 's', '123', 441, 'sad', 'sda', 'sda', 'dsa', 'sda', 'sadasd', 'sda', 'dsa', 'sad', 1, NULL, '$2y$10$99uAnFyYcxPpIj2QnBtGu.mAnV13LW3wtyqFXTY6pRz63jwZZWrXi', NULL, '2023-02-01 09:27:20', '2023-02-03 07:35:40'),
-(12, 'Ms', 'Duy Tân Lê', 'leduytan1772003@gmail.com', 2, '2003-07-17', 'Thừa Thiên Huế', 'Thừa Thiên Huế', 'sad', 31, '66049995678833', '192078382', '76049995678833192078382321', 'ádasd', 'A', 'ÁD', 'SAD', 'ÁDAS', 'D', 0, NULL, '$2y$10$uCZe4ldg5Sb5hkIJX36Td.teNovRRmoBICnA9qSjk9pmXxWHNrZGq', NULL, '2023-02-02 03:38:15', '2023-02-02 22:34:51'),
-(16, 'Ms', ' ', 'leduytan4567892@gmail.com', 2, '2023-01-30', 'Huế', 'Huế', '22', 44, '18284546626121', '123456789', '18284546626121123456789232', 'adssd', 'sda', 'sadasd', 'sdaádsd', 'ssda', 'ads', 0, NULL, '$2y$10$xQh8nciPKRJ9ytoVaO8zGuuNjM0tO1roBR04aocsmyQUBJ9bOjm1e', NULL, '2023-02-02 22:30:53', '2023-02-02 22:38:54'),
-(17, 'Dr', 'Tân Duy', 'leduytan17720033@gmail.com', 2, '2022-12-23', 'sdasd', 'sdasd', '123123', 1, '18283446626121', '123456789', '18283446626121123456789232', 'ád', 'sda', 'sad', 'sad', 'sad', 'sad', 0, NULL, '$2y$10$CY2NipesBta0GkMqsN1HsOJMhnWXzXD259nhHSYgih5AFU9Oneok6', NULL, '2023-02-02 22:37:15', '2023-02-02 22:37:15'),
-(18, 'Dr', 'sda ád', 'leduytan17723003@gmail.com', 2, '2000-07-17', 'sad', 'sad', 'ads', 5, '18284546626121', '123456789', '18282346626121123456789232', 'sdasd', 'ádasd', 'ádsd', 'sadsdasd', 'adsads', 'ádsd', 1, NULL, '$2y$10$y5tbGbu7UVTGtoeJPzAspOMAR.Ry6GNw/X8qVbm.v5MHubLXa.p.q', NULL, '2023-02-03 06:14:54', '2023-02-03 06:14:54'),
-(19, 'Mrs', 'Tân Lê', 'leduytan177202203@gmail.com', 2, '2000-12-07', 'sdsa', 'sdsa', 'adsasd', 9, '18282346626121', '123456789', '18283246626121123456789232', 'sdasd', 'ádsda', 'dá', 'sadasd', 'sadsad', 'sdasad', 1, NULL, '$2y$10$ak2Nub1QwC9YO85O3qXzlOWCCtPKqVmDNHUspjz406gf6C.HFubQK', NULL, '2023-02-03 06:19:28', '2023-02-03 06:19:28'),
-(20, 'Mrs', 'Duy Tân Lê', 'leduytan17723232003@gmail.com', 2, '2023-02-16', 'ads', 'ads', 'sad', 441, '18284346626121', '123456789', '18282446626121123456789232', 'sadasd', 'ádads', 'dsds', 'ád', 'dsaads', 'sadads', 1, NULL, '$2y$10$19mF6Q.AgBDUVByhg5y/b.CLGpwFQiW3T/7yubLB2IkqiI0kelm0m', NULL, '2023-02-03 06:20:56', '2023-02-03 07:21:52'),
-(21, 'Mr', 'tân tân', 'leduytan177223232003@gmail.com', 2, '2023-02-16', 'ads', 'ads', 'sad', 441, '18284346626121', '123456789', '18282446626121123456789232', 'sadasd', 'ádads', 'dsds', 'ád', 'dsaads', 'sadads', 1, NULL, '$2y$10$YwkV5DqYC7ZFrIEbOVE7Zu5WUa521NUM1M4h3PyY/DuhzYKyPl5bS', NULL, '2023-02-03 06:24:12', '2023-02-03 07:19:23'),
-(22, 'Dr', 'Hy Lê', 'leduytan1772023203@gmail.com', 2, '2020-12-23', 'sada', 'sada', 'sadasd', 441, '18282346626121', '123456789', '18281246626121123456789232', 'sadads', 'adsads', 'adsds', 'adsadsa', 'dsdsa', 'dsa', 1, NULL, '$2y$10$RlTizsQxHgB7Tz95PRxdXOo0i4KFMR2Zc6rz3BurFU9xcWq0aoeru', NULL, '2023-02-03 06:28:54', '2023-02-03 07:34:30'),
-(23, 'Mrs', 'Duy Tran', 'dsa@gmail.com', 2, '2005-02-02', 'sda', 'sda', 'sdasd', 13, '18282346626121', '123456789', '18282346626121123456789232', 'sadasd', 'dasds', 'dassd', 'dsaads', 'adsds', 'adssd', 1, NULL, '$2y$10$JOMYsyIOF3iZJGjPAZwGmeNWVuzTv6ANIH/kLpKt76VjzSb21I8ai', NULL, '2023-02-03 07:52:52', '2023-02-03 07:52:52'),
-(24, 'Mrs', 'Duy Tân Tran', 'leduytan177232003@gmail.com', 2, '2000-02-20', 'sadsa', 'sadsa', 'sadsad', 5, '18282346626121', '123456789', '18283246626121123456789232', 'sdasdsa', 'adsads', 'sad', 'sadsd', 'sadsad', 'ads', 1, NULL, '$2y$10$2frxuYOdlURHiJELy3QPT.URjmdGjy5RTyuWcXzNo0IbSTgOcB7nu', NULL, '2023-02-03 07:56:15', '2023-02-03 07:56:15');
+INSERT INTO `users` (`id`, `status`, `name`, `email`, `role`, `dateofbirth`, `address1`, `address2`, `codepostal`, `city_id`, `siret`, `vat`, `iban`, `swift`, `sponsor`, `percentage`, `numberSSRS`, `default`, `provider`, `dissertation`, `active`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Dr', 'Admin', 'admin@gmail.com', 1, '', '', '', '0', 1, '', '', '', '', '', '18', '0', '', '', '', 0, '0000-00-00 00:00:00', '$2y$10$kWukI9KARS7rfD2BUC09C.M9xg2n2lmC83Zkl5kD7E8VcYqMVSDWe', '', '0000-00-00 00:00:00', '2023-02-11 04:53:40'),
+(8, 'Dr', 'sd Lê', 'leduytan177222003@gmail.com', 2, '2/3/2023', 's', 's', '123', 1, 'sad', 'sda', 'sda', 'dsa', 'THE22939', '18', 'sadasd', 'sda', 'dsa', 'sad', 1, '0000-00-00 00:00:00', '$2y$10$99uAnFyYcxPpIj2QnBtGu.mAnV13LW3wtyqFXTY6pRz63jwZZWrXi', '', '0000-00-00 00:00:00', '2023-02-11 10:40:13'),
+(12, 'Ms', 'Duy Tân Lê', 'leduytan1772003@gmail.com', 2, '7/17/2003', 'Thừa Thiên Huế', 'Thừa Thiên Huế', 'sad', 31, '6.605E+13', '192078382', '7.605E+25', 'ádasd', 'THS22939', '18', 'ÁD', 'SAD', 'ÁDAS', 'D', 0, '0000-00-00 00:00:00', '$2y$10$uCZe4ldg5Sb5hkIJX36Td.teNovRRmoBICnA9qSjk9pmXxWHNrZGq', '', '2023-02-01 16:18:25', '2023-02-11 10:40:16'),
+(16, 'Ms', 'Tân Duy', 'leduytan4567892@gmail.com', 2, '1/30/2023', 'Huế', 'Huế', '22', 44, '1.82845E+13', '123456789', '1.82845E+25', 'adssd', 'T1E22939', '20', 'sadasd', 'sdaádsd', 'ssda', 'ads', 0, '0000-00-00 00:00:00', '$2y$10$xQh8nciPKRJ9ytoVaO8zGuuNjM0tO1roBR04aocsmyQUBJ9bOjm1e', '', '0000-00-00 00:00:00', '2023-02-11 10:40:18'),
+(17, 'Dr', 'Tân Duy', 'leduytan17720033@gmail.com', 2, '2022-12-23', 'sdasd', 'sdasd', '123123', 1, '18283446626121', '123456789', '18283446626121123456789232', 'ád', 'SQE22939', '18', 'sad', 'sad', 'sad', 'sad', 0, NULL, '$2y$10$CY2NipesBta0GkMqsN1HsOJMhnWXzXD259nhHSYgih5AFU9Oneok6', '', '2023-02-02 22:37:15', '2023-02-11 10:40:19'),
+(18, 'Dr', 'Duy Lê', 'leduytan17723003@gmail.com', 2, '2000-07-17', 'sad', 'sad', 'ads', 5, '18284546626121', '123456789', '18282346626121123456789232', 'sdasd', 'SJGE2812', '18', 'ádsd', 'sadsdasd', 'adsads', 'ádsd', 1, NULL, '$2y$10$y5tbGbu7UVTGtoeJPzAspOMAR.Ry6GNw/X8qVbm.v5MHubLXa.p.q', '', '2023-02-03 06:14:54', '2023-02-11 10:40:21'),
+(19, 'Mrs', 'Tân Lê', 'leduytan177202203@gmail.com', 2, '2000-12-07', 'sdsa', 'sdsa', 'adsasd', 9, '18282346626121', '123456789', '18283246626121123456789232', 'sdasd', 'TJGI2992', '20', 'dá', 'sadasd', 'sadsad', 'sdasad', 1, NULL, '$2y$10$ak2Nub1QwC9YO85O3qXzlOWCCtPKqVmDNHUspjz406gf6C.HFubQK', '', '2023-02-03 06:19:28', '2023-02-11 10:40:22'),
+(20, 'Mrs', 'Duy Tân Lê', 'leduytan17723232003@gmail.com', 2, '2023-02-16', 'ads', 'ads', 'sad', 441, '18284346626121', '123456789', '18282446626121123456789232', 'sadasd', 'EDIS1817', '17', 'dsds', 'ád', 'dsaads', 'sadads', 1, NULL, '$2y$10$19mF6Q.AgBDUVByhg5y/b.CLGpwFQiW3T/7yubLB2IkqiI0kelm0m', '', '2023-02-03 06:20:56', '2023-02-11 10:40:24'),
+(21, 'Mr', 'tân tân', 'leduytan177223232003@gmail.com', 2, '2023-02-16', 'ads', 'ads', 'sad', 441, '18284346626121', '123456789', '18282446626121123456789232', 'sadasd', 'EDAS1991', '15', 'dsds', 'ád', 'dsaads', 'sadads', 1, NULL, '$2y$10$YwkV5DqYC7ZFrIEbOVE7Zu5WUa521NUM1M4h3PyY/DuhzYKyPl5bS', '', '2023-02-03 06:24:12', '2023-02-11 10:40:26'),
+(22, 'Dr', 'Hy Lê', 'leduytan1772023203@gmail.com', 2, '2020-12-23', 'sada', 'sada', 'sadasd', 441, '18282346626121', '123456789', '18281246626121123456789232', 'sadads', 'EDIS2741', '19', 'adsds', 'adsadsa', 'dsdsa', 'dsa', 1, NULL, '$2y$10$RlTizsQxHgB7Tz95PRxdXOo0i4KFMR2Zc6rz3BurFU9xcWq0aoeru', '', '2023-02-03 06:28:54', '2023-02-11 10:40:27'),
+(23, 'Mrs', 'Duy Tran', 'dsa@gmail.com', 2, '2005-02-02', 'sda', 'sda', 'sdasd', 13, '18282346626121', '123456789', '18282346626121123456789232', 'sadasd', 'DSQE9983', '30', 'dassd', 'dsaads', 'adsds', 'adssd', 1, NULL, '$2y$10$JOMYsyIOF3iZJGjPAZwGmeNWVuzTv6ANIH/kLpKt76VjzSb21I8ai', '', '2023-02-03 07:52:52', '2023-02-11 10:40:31'),
+(24, 'Mrs', 'Duy Tân Tran', 'leduytan177232003@gmail.com', 2, '2000-02-20', 'sadsa', 'sadsa', 'sadsad', 5, '18282346626121', '123456789', '18283246626121123456789232', 'sdasdsa', 'DQRT-8824', '21', 'sad', 'sadsd', 'sadsad', '1', 1, NULL, '$2y$10$2frxuYOdlURHiJELy3QPT.URjmdGjy5RTyuWcXzNo0IbSTgOcB7nu', '', '2023-02-03 07:56:15', '2023-02-11 07:43:08'),
+(27, 'Mrs', 'Duy Tân Lê', 'leduytan1772222003@gmail.com', 2, '2000-02-06', 'ádasd', 'ádasd', 'sda', 1, '44412091900634', '817097348', 'FR398165181167AKU44W54TD092', 'ádsa', '9svOGcU5', '18', 'sadasd', 'ád', 'ád', 'ád', 1, NULL, '$2y$10$xL.79nXMt6s9I2jI0.j7ye4z9HIZnswbAVwBrAtV1bK7caTZfkV0C', NULL, '2023-02-11 02:25:57', '2023-02-11 02:25:57'),
+(28, 'Mrs', 'Duy Tân Lê', 'leduytan1772232003@gmail.com', 2, '2000-02-22', 'adsasd', 'adsasd', 'dsaasd', 1, '44412091900634', '817097348', 'FR398165181167AKU44W54TD092', 'sad', '4IG26943', '18', 'sad', 'sad', 'ads', 'ads', 1, NULL, '$2y$10$n7OuRTkqvIRF6r6T/jdMuOWwkbfiKp7Wv9s1wYCUKVmieCe9xw.ZW', NULL, '2023-02-11 03:37:42', '2023-02-11 03:37:42'),
+(29, 'Mrs', 'Duy Tân Lê', 'leduytan17722232003@gmail.com', 2, '2000-02-22', 'adsasd', 'adsasd', 'dsaasd', 15, '44412091900634', '817097348', 'FR398165181167AKU44W54TD092', 'sad', 'JDQE4724', '18', 'sad', 'sad', 'ads', 'ads', 1, NULL, '$2y$10$9toaGtqm31VBM7kz6K3EF.K4uMqtUCjuRFBiu.FcwoEgWR7.DyGtq', NULL, '2023-02-11 03:46:08', '2023-02-11 13:48:35'),
+(30, 'Mrs', 'Duy Tân Trần', 'leduytan17720023@gmail.com', 2, '0200-03-31', 'sadsad', 'sadsad', 'sada', 1, '68377667800354', '776704819', 'FR5669318847767686E72378R07', 'ádasd', 'JDQ24724', '18', 'ádsd', 'ádasd', 'ádasd', 'adsads', 1, NULL, '$2y$10$O/YNbkE6z92c3hT2HhfQy.iSNzm6ceojg1tVswG.hJHhhWei7eoTu', NULL, '2023-02-11 06:59:07', '2023-02-11 16:02:12'),
+(32, 'Me', 'Duy Tân', 'leduytan177200233@gmail.com', 2, '0200-03-31', 'sadsad', 'sadsad', 'sada', 1, '68377667800354', '776704819', 'FR5669318847767686E72378R07', 'ádasd', 'JDQ14724', '18', 'ádsd', 'ádasd', 'ádasd', 'adsads', 1, NULL, '$2y$10$GdkJkKvATFBdpXNeRu4P3u5/0z5DPSmarN9vfquaPDhnwV2hdla/C', NULL, '2023-02-11 07:01:49', '2023-02-11 16:02:14'),
+(33, 'Me', 'Duy Tân Trần', 'leduytan1772002233@gmail.com', 2, '0200-03-31', 'sadsad', 'sadsad', 'sada', 1, '68377667800354', '776704819', 'FR5669318847767686E72378R07', 'ádasd', 'JDQA4724', '18', 'ádsd', 'ádasd', 'ádasd', 'adsads', 1, NULL, '$2y$10$JJ.buS9s7zMtMxvg6pz1BuAhUX.TwzbybN5f69hseiupO0Yc0vzMW', NULL, '2023-02-11 07:03:45', '2023-02-11 16:02:27'),
+(37, 'Mrs', 'Duy Tân Lê', 'leduytan17720222203@gmail.com', 2, '2000-02-22', 'sadsd', 'sadsd', 'áds', 1, '77976467900071', '951674480', 'FR236294787161HVM7OF0K1PS58', 'sad', 'JDQA4724', '18', 'sad', 'sad', 'sad', 'sad', 1, NULL, '$2y$10$NAu5KT.8oQ31Ab8qOgvUNesfeGjf1nEwuh6Q4Li3mh/WF4b9iA4Qy', NULL, '2023-02-11 07:29:23', '2023-02-11 07:29:23');
 
 --
 -- Indexes for dumped tables
@@ -681,16 +699,16 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `referer`
+-- Indexes for table `sponsor_code`
 --
-ALTER TABLE `referer`
+ALTER TABLE `sponsor_code`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`,`active`) USING BTREE,
+  ADD PRIMARY KEY (`id`) USING BTREE,
   ADD UNIQUE KEY `users_email_unique` (`email`),
   ADD KEY `fk_city` (`city_id`);
 
@@ -723,16 +741,26 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `referer`
+-- AUTO_INCREMENT for table `sponsor_code`
 --
-ALTER TABLE `referer`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `sponsor_code`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `fk_city` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
