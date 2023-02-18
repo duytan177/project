@@ -48,13 +48,13 @@ Route::prefix('/admin')->middleware('auth')->group( function() {
     Route::get('/invoice',function(){
         return view('user.invoice');
     });
-    Route::get('/profile',function(){
-        return view('layouts.profile');
-    });
 });
 Route::prefix('/user')->middleware('auth')->group( function() {
     Route::get('/sponsorship', [\App\Http\Controllers\SponsorshipController::class, 'index'])->name('sponsor');
-});
+    Route::get('/profile',[\App\Http\Controllers\ProfileController::class,'index'])->name('profile');
+    Route::post('/profile',[\App\Http\Controllers\ProfileController::class,'store'])->name('storeProfile');
+    Route::get('/profile/{id}',[\App\Http\Controllers\ProfileController::class,'show'])->name('showImage');
+})->middleware('user');
 
 
 

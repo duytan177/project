@@ -33,8 +33,6 @@ class SponsorshipController extends Controller
                 ]];
             }
         }
-
-
         return view('layouts.sponsorship',['sponsor' => $sponsor,'code' => $code]);
     }
 }

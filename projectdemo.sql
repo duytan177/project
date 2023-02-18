@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2023 at 05:22 PM
+-- Generation Time: Feb 18, 2023 at 11:33 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -575,6 +575,53 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `profile`
+--
+
+CREATE TABLE `profile` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `request_authority` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type_of_service` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `profile`
+--
+
+INSERT INTO `profile` (`id`, `name`, `request_authority`, `type_of_service`, `created_at`, `updated_at`) VALUES
+(1, 'Duy Tân', 'ádsd', 'ádadsads', '2023-02-17 18:11:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profile_upload_file`
+--
+
+CREATE TABLE `profile_upload_file` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `profile_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `document_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `document_path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `index` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `profile_upload_file`
+--
+
+INSERT INTO `profile_upload_file` (`id`, `profile_id`, `document_name`, `document_path`, `index`, `created_at`, `updated_at`) VALUES
+(1, 1, 'donthuoc', 'public/images/donthuoc1.png', '1', '2023-02-17 18:11:37', '2023-02-18 10:19:39'),
+(9, 1, 'z3996822344482_493ac0a5c1885998f2a9bd96aff63703', 'public/images/z3996822344482_493ac0a5c1885998f2a9bd96aff63703.jpg', '2', '2023-02-18 08:49:33', NULL),
+(10, 1, 'z3996823385061_81714fcd22396c152e8da26118469112', 'public/images/z3996823385061_81714fcd22396c152e8da26118469112.jpg', NULL, '2023-02-18 08:50:58', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sponsor_code`
 --
 
@@ -699,6 +746,18 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `profile`
+--
+ALTER TABLE `profile`
+  ADD PRIMARY KEY (`id`) USING BTREE;
+
+--
+-- Indexes for table `profile_upload_file`
+--
+ALTER TABLE `profile_upload_file`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sponsor_code`
 --
 ALTER TABLE `sponsor_code`
@@ -739,6 +798,18 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `profile`
+--
+ALTER TABLE `profile`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `profile_upload_file`
+--
+ALTER TABLE `profile_upload_file`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `sponsor_code`

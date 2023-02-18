@@ -58,8 +58,6 @@
                         @endif
                     </tr>
                     @endforeach
-
-
             </tbody>
     </div>
     <script>
