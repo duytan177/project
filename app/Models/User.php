@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'api_token'
     ];
 
     /**
@@ -35,7 +36,7 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be cast.
-     * 
+     *
      * @var array<string, string>
      */
     protected $casts = [

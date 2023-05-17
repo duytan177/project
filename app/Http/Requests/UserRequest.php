@@ -30,7 +30,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => ['required'],
+             'status' => ['required'],
             'firstname' => ['required',  'max:30'],
             'lastname' => ['required', 'max:30'],
             'email' => ['required', 'email', 'max:255', 'unique:users'],
@@ -41,10 +41,8 @@ class UserRequest extends FormRequest
             'codepostal' => ['required'],
             'siret' => ['required', new SiretRule(),'max:14','min:14'],
             'VAT' => ['required',new SirenRule(),'max:9','min:9'],
-            'IBAN' => ['required',new IbanRule(),'max:26','min:26'],
+            'IBAN' => ['required',new IbanRule()],
             'swift' => ['required'],
-            'swift' => ['required'],
-            'sponsor' => ['required'],
             'numberSSRS' => ['required'],
             'default' => ['required'],
             'provider' => ['required'],

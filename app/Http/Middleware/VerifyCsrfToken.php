@@ -11,7 +11,17 @@ class VerifyCsrfToken extends Middleware
      *
      * @var array<int, string>
      */
+
+//    protected $addHttpCookie = true;
+//
+//    protected $except = [
+//        'auth/facebook/callback',
+//        'auth/google/callback',
+//    ];
+//    protected $except = ['/oauth/authorize','',''];
     protected $except = [
-        //
+        'stripe/*',
+        'http://example.com/foo/bar',
+        'http://example.com/foo/*',
     ];
 }

@@ -8,13 +8,16 @@ use App\Rules\IbanRule;
 use App\Rules\SirenRule;
 use App\Rules\SiretRule;
 use Carbon\Carbon;
+
 use Faker\Calculator\Luhn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
     public function index(Request $request)
     {
             $result = DB::table('users')->where('role',2)->get();
@@ -23,7 +26,8 @@ class UserController extends Controller
 
     public function create(){
         $cities = DB::table('cities')->get();
-        return view('user.add',['cities' => $cities]);
+        return response()->json($cities);
+//        return view('user.add',['cities' => $cities]);
     }
     public function store(UserRequest $request){
         $users = new User();

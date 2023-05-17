@@ -1,8 +1,8 @@
-@extends('layouts.master')
+    @extends('layouts.master')
 @section('content')
-  
+
 <div class="container-fluid">
-  
+
     <div class="p-4">
         <div class="input-group">
             <label for="">Setting:</label>

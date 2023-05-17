@@ -1,0 +1,44 @@
+{
+    "rubik": {
+        "italic": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/rubik_italic_a149007049a13b8051c6f41056a43d0c",
+        "500_italic": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/rubik_500_italic_4bed4f021ea525fe671cc90b30275564",
+        "bold_italic": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/rubik_bold_italic_4bceb57763a51506807139d7871d3546",
+        "normal": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/rubik_normal_0129b2a33afdf9a0b07a8d064ebdf442",
+        "500": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/rubik_500_37f12d566356dc0f6affcdc368cd4159",
+        "bold": "rubik_bold_5bd90809aae736b64183080c4aba17cb"
+    },
+    "roboto": {
+        "300_italic": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/roboto_300_italic_60fd1c5c48964f53c185886d78f6dd92",
+        "italic": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/roboto_italic_d5c10dd70a66238a4d11751aca1ac2f6",
+        "500_italic": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/roboto_500_italic_cb3389574fec6f0962ed3b8e8df3657a",
+        "bold_italic": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/roboto_bold_italic_3c4c982d93d98be963531fd17b72c633",
+        "300": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/roboto_300_21960201651f2ea862182ff34dfd5ead",
+        "normal": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/roboto_normal_9fa47a070a8b30b595086d70bb7ac78c",
+        "500": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/roboto_500_d0dcda9e813eb9b854a1cc044831f6fe",
+        "bold": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/roboto_bold_3d0ad20d45ace845335f9e6c390a09d9",
+        "900": "roboto_900_509a5e5b153550862359e315131088d5"
+    },
+    "font awesome 6 brands": {
+        "normal": "font_awesome_6_brands_normal_92c45b19798a109fcc8b8f9e249272d8"
+    },
+    "font awesome 6 free": {
+        "normal": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/font_awesome_6_free_normal_30b57e7665436a6587cd5386a637d3de",
+        "900": "font_awesome_6_free_900_72233ab0c0c82334bfa8594e8b8daca5"
+    },
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_92c45b19798a109fcc8b8f9e249272d8"
+    },
+    "font awesome 5 free": {
+        "900": "C:\\xampp\\htdocs\\projectdemo\\storage\\fonts\/font_awesome_5_free_900_72233ab0c0c82334bfa8594e8b8daca5",
+        "normal": "font_awesome_5_free_normal_30b57e7665436a6587cd5386a637d3de"
+    },
+    "fontawesome": {
+        "normal": "fontawesome_normal_02fe6e6b4ad2a38bb846e6d1a6a3fe11"
+    },
+    "icofont": {
+        "normal": "icofont_normal_195d37e5831132d9b689b22cbe320307"
+    },
+    "themify": {
+        "normal": "themify_normal_7c010970f65283a0360e26d25dc87ef3"
+    }
+}
